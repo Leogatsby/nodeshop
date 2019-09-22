@@ -12,15 +12,16 @@ const mongoose = require('mongoose');
 //     });
 // });
 
-app.use(morgan("dev"));  // dev도 있고, combined => 이렇게 나온다 : PATCH /order 200 28.640 ms - 21         200~300 네트워크 성공 , 400~500 인터넷 실패
+// app.use(morgan("dev"));  // dev도 있고, combined => 이렇게 나온다 : PATCH /order 200 28.640 ms - 21         200~300 네트워크 성공 , 400~500 인터넷 실패
 app.use(bodyParser.json()); app.use(bodyParser.urlencoded({ extended: false})); // 바디파서 세트다
 
-app.use("/product", productsRoutes);
-app.use("/order", ordersRoutes);
+app.use("/products", productsRoutes);
+app.use("/orders", ordersRoutes);
 
 
 // 몽고 커넥티드 
 const db = "mongodb+srv://baek:tkfkdgody1!@cluster0-drx3a.mongodb.net/test?retryWrites=true&w=majority";
+// const db = "mongodb://teddykwak:k9915402@ds141294.mlab.com:41294/node-rest-shop"
 mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
     .then( () => console.log("몽고디비 연결됨..."))                                         //정상적으로 처리되면 then
     .catch(err => console.log(err));                                       //err를 잡아줄때 접속오류, 네트워크 오류
