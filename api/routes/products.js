@@ -141,8 +141,8 @@ router.patch("/:productID",(req,res) =>{
                     result: result,
                     electionId: result.electionId,
                     request: {
-                        type: "PATCH",
-                        url:"http://localhost:3000/products"    // 링크를 누를시 patch로 이동 어떻게 하니?
+                        type: "GET", // 타입은 모두 겟이다. patch
+                        url:"http://localhost:3000/products/"+result._id    // 링크를 누를시 patch로 이동 어떻게 하니?
                     }
                 }
             });
@@ -174,7 +174,11 @@ router.delete("/:productID",(req,res) => {
             if(result){
                 return res.status(200).json({
                     msg: "deleted product",
-                    result: result
+                    result: result, //큰 의미가 없는 result 이다.
+                    request: {
+                        type: "GET",
+                        url:"http://localhost:3000/proucts/"
+                    }
                 })
             }else{
                 res.status(400).json({

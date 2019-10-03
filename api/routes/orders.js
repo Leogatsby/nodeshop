@@ -120,10 +120,32 @@ router.patch("/",(req,res) => {
 
 // order 데이터 삭제하기 
 
-router.delete("/", (req, res) => {
-    res.status(200).json({
-        msg: "order delete"
-    });
+router.delete("/:orderID", (req, res) => {
+    // const ID = req.params.orderID;
+    orderModel
+        // .remove({_id:ID}) , 그냥 바로 req.params.order 하는게 나음
+        .remove({_id:req.params.orderID})
+        .then(result => {
+            if(result){
+                return res.status(200).json({
+                    msg: "상품주문 삭제됨",
+                    result: result, // 없어도 됨
+                    request:{
+                        type: "GET",
+                        url:"http://localhost:3000/orders"
+                    }
+                });
+            }else{
+                res.status(400).json({
+                    msg: "상품주문 아이디가 없습니다. 삭제 할거 없습니다."
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).json({
+                error : err
+            })
+        })
 });
 
 module.exports = router;
