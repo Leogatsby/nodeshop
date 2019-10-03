@@ -128,17 +128,17 @@ router.post("/", (req,res) =>{
 router.patch("/:productID",(req,res) =>{
 
     const ID = req.params.productID;
-    
     const props = req.body;
     
     productModel
         .update({_id:ID} ,props)
-        .exec()
+        // .exec()
         .then(result => {
             console.log(result);
             res.status(200).json({
                 msg: "updated product",
                 productInfo: {
+                    result: result,
                     electionId: result.electionId,
                     request: {
                         type: "PATCH",
