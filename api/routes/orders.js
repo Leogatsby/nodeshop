@@ -44,16 +44,17 @@ router.get("/:orderID", (req,res) => {
 
     const ID = req.params.orderID;
     orderModel
-        .find({_id:ID})
+        .findById(ID)   // 배열로 안나옴
+        // .find({_id:ID}) //배열로 나옴
         .then(result => {
             if(result){
                 return res.status(200).json({
-                    msg: result[0]._id+"해당 주문에 대한 상세 정보입니다.",
-                    orderInfo: {
-                        _id: result[0]._id,
-                        productID: result[0].product,
-                        quantity: result[0].quantity
-                    },
+                    msg: result._id+"해당 주문에 대한 상세 정보입니다.",
+                    // orderInfo: {
+                    //     _id: result._id,
+                    //     productID: result.product,
+                    //     quantity: result.quantity
+                    // },
                     order : result ,
                     request: {
                         type: "GET",
