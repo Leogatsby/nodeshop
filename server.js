@@ -4,6 +4,7 @@ const http = require("http");   //익스플레스 안에 같이 포함되어 있
 const morgan = require("morgan");
 const productsRoutes = require("./api/routes/products");
 const ordersRoutes = require("./api/routes/orders");
+const usersRoutes = require("./api/routes/users");
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 // app.use((req,res) => {
@@ -17,7 +18,7 @@ app.use(bodyParser.json()); app.use(bodyParser.urlencoded({ extended: false})); 
 
 app.use("/products", productsRoutes);
 app.use("/orders", ordersRoutes);
-
+app.use("/users", usersRoutes);
 
 // 몽고 커넥티드 
 const db = "mongodb+srv://baek:tkfkdgody1!@cluster0-drx3a.mongodb.net/test?retryWrites=true&w=majority";
