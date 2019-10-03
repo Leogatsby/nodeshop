@@ -23,7 +23,7 @@ app.use("/users", usersRoutes);
 // 몽고 커넥티드 
 const db = "mongodb+srv://baek:tkfkdgody1!@cluster0-drx3a.mongodb.net/test?retryWrites=true&w=majority";
 // const db = "mongodb://teddykwak:k9915402@ds141294.mlab.com:41294/node-rest-shop"
-mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true ,useCreateIndex: true })
     .then( () => console.log("몽고디비 연결됨..."))                                         //정상적으로 처리되면 then
     .catch(err => console.log(err));                                       //err를 잡아줄때 접속오류, 네트워크 오류
 
