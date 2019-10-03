@@ -6,9 +6,36 @@ const productModel = require("../model/products");
 // order 데이터 불러오기
 
 router.get("/", (req, res) => {
-    res.status(200).json({
-        msg: "order get"
-    });
+    orderModel
+        .find()
+        .exec()
+        .then(docs => {
+            // console.log(docs);
+            res.status(201).json({
+                msg : "상품 주문 리스트입니다.",
+                count : "주문수는 "+ docs.length+"입니다.",
+                // orders1 : docs,
+                orders2 : docs.map(doc => {
+                    return { 
+                        _id : doc._id,
+                        product : doc.productID,
+                        quantity: doc.quantity,
+                        // 모델과 있는 키값과 같지 않으면 보여지지 않는다. 못찾는다.
+                        // 리턴 잊지말자
+                        request: {
+                            type: "GET",
+                            url: "http://localhost:3000/orders/"+doc._id
+                        }
+                    }
+                }),
+               
+            });
+        })
+        .catch(err => {
+            res.status(500).json({
+                error : err
+            });
+        })
 });
 
 // order 데이터 생성하기
