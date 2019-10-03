@@ -38,6 +38,39 @@ router.get("/", (req, res) => {
         })
 });
 
+//order 데이터 상세 불러오기
+
+router.get("/:orderID", (req,res) => {
+
+    const ID = req.params.orderID;
+    orderModel
+        .find({_id:ID})
+        .then(result => {
+            if(result){
+                return res.status(200).json({
+                    msg: result[0]._id+"해당 주문에 대한 상세 정보입니다.",
+                    orderInfo: {
+                        _id: result[0]._id,
+                        productID: result[0].product,
+                        quantity: result[0].quantity
+                    },
+                    order : result ,
+                    request: {
+                        type: "GET",
+                        url:"http://localhost:3000/orders"
+                    }
+                })
+            }else{
+
+            }
+        })
+        .catch(err => {
+            res.status(500).json({
+                error : err
+            });
+        });
+});
+
 // order 데이터 생성하기
 
 router.post("/", (req,res) => {
